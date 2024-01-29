@@ -1,6 +1,10 @@
 import db from '../../config/database.js'
 
 class BaseService {
+  constructor(tableName) {
+    this.tableName = tableName
+  }
+
   async get() {
     const [rows] = await db.query(`SELECT * FROM ${this.tableName}`)
 
