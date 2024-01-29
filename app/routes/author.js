@@ -1,13 +1,20 @@
 import { Router } from 'express'
+import Author from '../services/author.js'
 
 const router = Router()
 
 router.get('/authors', async (req, res) => {
-  res.json({ message: 'hello from author routes' })
+  const authors = await Author.get()
+  res.json(authors)
 })
 
 router.get('/authors/:id', async (req, res) => {
-  res.json({ message: 'hello from author routes' })
+  try {
+    const author = await Author.find(req.params.id)
+    res.json(author)
+  } catch (err) {
+    res.status(404).json({ message: err.message })
+  }
 })
 
 router.post('/authors', async (req, res) => {

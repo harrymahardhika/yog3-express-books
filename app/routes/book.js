@@ -1,13 +1,20 @@
 import { Router } from 'express'
+import Book from '../services/book.js'
 
 const router = Router()
 
 router.get('/', async (req, res) => {
-  res.json({ message: 'hello from books routes' })
+  const books = await Book.get()
+  res.json(books)
 })
 
 router.get('/:id', async (req, res) => {
-  res.json({ message: 'hello from books routes' })
+  try {
+    const book = await Book.find(req.params.id)
+    res.json(book)
+  } catch (err) {
+    res.status(404).json({ message: err.message })
+  }
 })
 
 router.post('/', async (req, res) => {
