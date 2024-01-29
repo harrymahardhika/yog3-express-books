@@ -1,21 +1,7 @@
-import db from '../../config/database.js'
+import BaseService from './base-service.js'
 
-class Publisher {
-  async get() {
-    const [rows] = await db.query('SELECT * FROM publishers')
-
-    return rows
-  }
-
-  async find(id) {
-    const [rows] = await db.query('SELECT * FROM publishers WHERE id = ?', [id])
-
-    if (!rows.length) {
-      throw new Error('Publisher not found')
-    }
-
-    return rows[0]
-  }
+class Publisher extends BaseService {
+  tableName = 'publishers'
 }
 
 export default new Publisher()

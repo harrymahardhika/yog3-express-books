@@ -1,21 +1,7 @@
-import db from '../../config/database.js'
+import BaseService from './base-service.js'
 
-class Book {
-  async get() {
-    const [rows] = await db.query('SELECT * FROM books')
-
-    return rows
-  }
-
-  async find(id) {
-    const [rows] = await db.query('SELECT * FROM books WHERE id = ?', [id])
-
-    if (!rows.length) {
-      throw new Error('Book not found')
-    }
-
-    return rows[0]
-  }
+class Book extends BaseService {
+  tableName = 'books'
 }
 
 export default new Book()
